@@ -6,7 +6,7 @@
 /*   By: nsassenb <nsassenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 16:18:20 by nsassenb          #+#    #+#             */
-/*   Updated: 2023/09/14 19:03:35 by nsassenb         ###   ########.fr       */
+/*   Updated: 2023/09/14 19:20:52 by nsassenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*ft_append_buffer(char *str, void *buffer, size_t index, size_t size)
 	char	*newstr;
 	size_t	i;
 
-	if (index == size)
+	if (size == 1) //fix reading and creating strings like this --> "\0" but still read strings like this -->"\n"
 		return (str);
 	currsize = ft_strlen(str);
 	newstr = malloc(currsize + (size - index) + 1);
@@ -55,11 +55,11 @@ int	get_newline_idx(char *buffer, size_t n)
 	size_t	i;
 
 	i = 0;
-	while (i++ < n)
+	while (i < n)
 	{
-		if (*buffer == '\n' || *buffer == '\0')
+		if (buffer[i] == '\n' || buffer[i] == '\0')
 			return (i);
-		buffer++;
+		i++;
 	}
 	return (n);
 }
@@ -88,8 +88,8 @@ char	*read_file(int fd, void *buffer)
 		if (!ft_strlen(buffer))
 			asize = read(fd, buffer, BUFFER_SIZE);
 		i = get_newline_idx(buffer, asize);
-		str = ft_append_buffer(str, buffer, 0, i);
-		ft_trim_buffer(buffer, i);
+		str = ft_append_buffer(str, buffer, 0, i + 1);
+		ft_trim_buffer(buffer, i + 1);
 		if (i < BUFFER_SIZE)
 			break ;
 	}
