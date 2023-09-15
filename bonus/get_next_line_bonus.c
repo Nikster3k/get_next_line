@@ -6,7 +6,7 @@
 /*   By: nsassenb <nsassenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 16:18:14 by nsassenb          #+#    #+#             */
-/*   Updated: 2023/09/15 15:30:17 by nsassenb         ###   ########.fr       */
+/*   Updated: 2023/09/15 17:00:28 by nsassenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,32 @@ void	*ft_get_fd_buffer(t_list **buffers, int fd)
 	return (current->buffer);
 }
 
-int	ft_check_error(size_t size, char **str)
+void	ft_clremptylst_item(t_list	**node)
 {
-	if (size == (size_t)(-1))
+	t_list	*curr;
+	t_list	*prev;
+
+	prev = NULL;
+	curr = *node;
+	while (curr != NULL)
 	{
-		free(*str);
-		*str = NULL;
-		return (1);
+		if (curr->buffer == NULL)
+		{
+			if (prev == NULL)
+			{
+				*node = curr->next;
+				free(curr);
+				curr = *node;
+				continue ;
+			}
+			prev->next = curr->next;
+			free(curr);
+			curr = prev->next;
+			continue ;
+		}
+		prev = curr;
+		curr = curr->next;
 	}
-	return (0);
 }
 
 char	*get_next_line(int fd)
@@ -74,5 +91,6 @@ char	*get_next_line(int fd)
 
 	currbuffer = ft_get_fd_buffer(&buffers, fd);
 	str = read_file(fd, &currbuffer);
+	ft_clremptylst_item(&buffers);
 	return (str);
 }

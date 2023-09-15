@@ -6,7 +6,7 @@
 /*   By: nsassenb <nsassenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 16:18:20 by nsassenb          #+#    #+#             */
-/*   Updated: 2023/09/15 16:05:49 by nsassenb         ###   ########.fr       */
+/*   Updated: 2023/09/15 16:31:15 by nsassenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,7 @@ char	*ft_append_buffer(char *str, void *buffer, size_t index, size_t size)
 		i++;
 	}
 	newstr[i] = '\0';
-	free(str);
-	return (newstr);
+	return (free(str), newstr);
 }
 
 int	get_newline_idx(char *buffer, size_t n)
