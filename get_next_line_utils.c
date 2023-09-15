@@ -6,7 +6,7 @@
 /*   By: nsassenb <nsassenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 16:18:20 by nsassenb          #+#    #+#             */
-/*   Updated: 2023/09/15 12:15:32 by nsassenb         ###   ########.fr       */
+/*   Updated: 2023/09/15 14:56:59 by nsassenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,10 @@ int	get_newline_idx(char *buffer, size_t n)
 	i = 0;
 	while (i < n)
 	{
-		if (buffer[i] == '\n' || buffer[i] == '\0')
+		if (buffer[i] == '\n')
 			return (i);
+		if (buffer[i] == '\0')
+			break ;
 		i++;
 	}
 	return (n);
@@ -89,6 +91,8 @@ char	*read_file(int fd, void **buffer)
 	{
 		if (!ft_strlen(*buffer))
 			asize = read(fd, *buffer, BUFFER_SIZE);
+		if (ft_check_error(asize, &str))
+			break ;
 		if (asize == 0)
 			break ;
 		i = get_newline_idx(*buffer, asize);

@@ -6,11 +6,22 @@
 /*   By: nsassenb <nsassenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 16:18:14 by nsassenb          #+#    #+#             */
-/*   Updated: 2023/09/15 11:48:02 by nsassenb         ###   ########.fr       */
+/*   Updated: 2023/09/15 14:57:47 by nsassenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+int	ft_check_error(size_t size, char **str)
+{
+	if (size == (size_t)(-1))
+	{
+		free(*str);
+		*str = NULL;
+		return (1);
+	}
+	return (0);
+}
 
 char	*get_next_line(int fd)
 {
