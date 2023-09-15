@@ -6,15 +6,15 @@
 /*   By: nsassenb <nsassenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 16:18:20 by nsassenb          #+#    #+#             */
-/*   Updated: 2023/09/15 16:31:15 by nsassenb         ###   ########.fr       */
+/*   Updated: 2023/09/15 17:59:14 by nsassenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	ft_check_error(size_t size, char **str)
+int	ft_check_error(int size, char **str)
 {
-	if (size == (size_t)(-1))
+	if (size == -1)
 	{
 		free(*str);
 		*str = NULL;
@@ -80,7 +80,7 @@ void	ft_trim_buffer(char *buffer, size_t idx)
 char	*read_file(int fd, void **buffer)
 {
 	char	*str;
-	size_t	asize;
+	int		asize;
 	int		i;
 
 	asize = BUFFER_SIZE;
