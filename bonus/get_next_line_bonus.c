@@ -6,7 +6,7 @@
 /*   By: nsassenb <nsassenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 16:18:14 by nsassenb          #+#    #+#             */
-/*   Updated: 2023/09/15 17:00:28 by nsassenb         ###   ########.fr       */
+/*   Updated: 2023/09/15 18:15:44 by nsassenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_list	*ft_new_list_buffer(int fd)
 {
 	t_list	*new;
 	size_t	size;
-	
+
 	size = BUFFER_SIZE;
 	new = malloc(sizeof(t_list));
 	if (new == NULL)
@@ -24,7 +24,10 @@ t_list	*ft_new_list_buffer(int fd)
 	new->fd = fd;
 	new->buffer = malloc(size);
 	if (new->buffer == NULL)
+	{
+		free(new);
 		return (NULL);
+	}
 	while (size--)
 		((char *)new->buffer)[size] = 0;
 	new->next = NULL;
@@ -51,6 +54,8 @@ void	*ft_get_fd_buffer(t_list **buffers, int fd)
 		current = current->next;
 	}
 	current = ft_new_list_buffer(fd);
+	if (current == NULL)
+		return (NULL);
 	ft_lstadd_front(buffers, current);
 	return (current->buffer);
 }
