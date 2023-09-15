@@ -6,22 +6,21 @@
 /*   By: nsassenb <nsassenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 16:18:20 by nsassenb          #+#    #+#             */
-/*   Updated: 2023/09/15 14:56:59 by nsassenb         ###   ########.fr       */
+/*   Updated: 2023/09/15 16:05:49 by nsassenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	ft_strlen(char *s)
+int	ft_check_error(size_t size, char **str)
 {
-	int	i;
-
-	i = 0;
-	if (s == NULL)
-		return (i);
-	while (s[i])
-		i++;
-	return (i);
+	if (size == (size_t)(-1))
+	{
+		free(*str);
+		*str = NULL;
+		return (1);
+	}
+	return (0);
 }
 
 char	*ft_append_buffer(char *str, void *buffer, size_t index, size_t size)
@@ -32,19 +31,19 @@ char	*ft_append_buffer(char *str, void *buffer, size_t index, size_t size)
 
 	if (size > BUFFER_SIZE)
 		size = BUFFER_SIZE;
-	currsize = ft_strlen(str);
+	currsize = 0;
+	while (str != NULL && str[currsize])
+		currsize++;
 	newstr = malloc(currsize + (size - index) + 1);
 	if (newstr == NULL)
 		return (NULL);
 	i = 0;
-	while (i < currsize)
-	{
-		newstr[i] = str[i];
-		i++;
-	}
 	while (i < (size - index) + currsize)
 	{
-		newstr[i] = ((char *)buffer)[index + i - currsize];
+		if (i < currsize)
+			newstr[i] = str[i];
+		else
+			newstr[i] = ((char *)buffer)[index + i - currsize];
 		i++;
 	}
 	newstr[i] = '\0';
@@ -89,7 +88,7 @@ char	*read_file(int fd, void **buffer)
 	str = NULL;
 	while (asize == BUFFER_SIZE)
 	{
-		if (!ft_strlen(*buffer))
+		if (((char *)*buffer)[0] == 0)
 			asize = read(fd, *buffer, BUFFER_SIZE);
 		if (ft_check_error(asize, &str))
 			break ;
