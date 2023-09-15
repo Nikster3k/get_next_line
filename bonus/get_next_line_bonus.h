@@ -6,7 +6,7 @@
 /*   By: nsassenb <nsassenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 16:18:16 by nsassenb          #+#    #+#             */
-/*   Updated: 2023/09/15 12:54:28 by nsassenb         ###   ########.fr       */
+/*   Updated: 2023/09/15 15:29:25 by nsassenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int		ft_strlen(char *s);
 char	*read_file(int fd, void **buffer);
 char	*ft_append_buffer(char *str, void *buffer, size_t index, size_t size);
 void	ft_trim_buffer(char *buffer, size_t idx);
+int		ft_check_error(size_t size, char **str);
 
 typedef struct s_list
 {

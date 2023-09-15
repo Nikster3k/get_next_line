@@ -18,18 +18,20 @@
 int	main(void)
 {
 	char	*str;
-	int		fd = open("testfile", O_RDONLY);
-	str = get_next_line(fd);
-	printf("Line: %s", str);
+	int	file1 = open("testfile1", O_RDONLY);
+	int	file2 = open("testfile2", O_RDONLY);
+	str = get_next_line(file1);
+	printf("File1: %s", str);
 	free(str);
-	str = get_next_line(fd);
-	printf("Line: %s", str);
+	str = get_next_line(file2);
+	printf("File2: %s", str);
 	free(str);
-	str = get_next_line(fd);
-	printf("Line: %s", str);
+	str = get_next_line(file1);
+	printf("File1: %s", str);
 	free(str);
-	str = get_next_line(fd);
-	printf("Line: %s", str);
+	str = get_next_line(file2);
+	printf("File2: %s", str);
 	free(str);
-	close(fd);
+	close(file1);
+	close(file2);
 }
