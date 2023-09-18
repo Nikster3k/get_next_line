@@ -6,7 +6,7 @@
 /*   By: nsassenb <nsassenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 16:18:16 by nsassenb          #+#    #+#             */
-/*   Updated: 2023/09/16 18:54:11 by nsassenb         ###   ########.fr       */
+/*   Updated: 2023/09/18 19:47:04 by nsassenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #  define BUFFER_SIZE 10
 # endif //!BUFFER_SIZE
 
+int		ft_strlen(char *s);
 char	*get_next_line(int fd);
 char	*read_file(int fd, void **buffer);
 char	*ft_append_buffer(char *str, void *buffer, size_t index, size_t size);

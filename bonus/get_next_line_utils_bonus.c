@@ -6,7 +6,7 @@
 /*   By: nsassenb <nsassenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 16:18:20 by nsassenb          #+#    #+#             */
-/*   Updated: 2023/09/18 14:53:11 by nsassenb         ###   ########.fr       */
+/*   Updated: 2023/09/18 19:47:38 by nsassenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@ char	*ft_append_buffer(char *str, void *buffer, size_t size, size_t buffsize)
 
 	if (size > buffsize)
 		size = buffsize;
-	currsize = 0;
-	while (str != NULL && str[currsize])
-		currsize++;
+	currsize = ft_strlen(str);
+	buffsize = ft_strlen(buffer);
+	if (size > buffsize)
+		size = buffsize;
 	newstr = malloc(currsize + size + 1);
 	if (newstr == NULL)
 		return (free(str), NULL);
