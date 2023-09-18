@@ -6,15 +6,15 @@
 /*   By: nsassenb <nsassenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 16:18:20 by nsassenb          #+#    #+#             */
-/*   Updated: 2023/09/15 18:26:19 by nsassenb         ###   ########.fr       */
+/*   Updated: 2023/09/18 14:53:11 by nsassenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-int	ft_check_error(size_t size, char **str)
+int	ft_check_error(int size, char **str)
 {
-	if (size == (size_t)(-1))
+	if (size == -1)
 	{
 		free(*str);
 		*str = NULL;
@@ -23,32 +23,31 @@ int	ft_check_error(size_t size, char **str)
 	return (0);
 }
 
-char	*ft_append_buffer(char *str, void *buffer, size_t index, size_t size)
+char	*ft_append_buffer(char *str, void *buffer, size_t size, size_t buffsize)
 {
 	size_t	currsize;
 	char	*newstr;
 	size_t	i;
 
-	if (size > BUFFER_SIZE)
-		size = BUFFER_SIZE;
+	if (size > buffsize)
+		size = buffsize;
 	currsize = 0;
 	while (str != NULL && str[currsize])
 		currsize++;
-	newstr = malloc(currsize + (size - index) + 1);
+	newstr = malloc(currsize + size + 1);
 	if (newstr == NULL)
-		return (NULL);
+		return (free(str), NULL);
 	i = 0;
-	while (i < (size - index) + currsize)
+	while (i < size + currsize)
 	{
 		if (i < currsize)
 			newstr[i] = str[i];
 		else
-			newstr[i] = ((char *)buffer)[index + i - currsize];
+			newstr[i] = ((char *)buffer)[i - currsize];
 		i++;
 	}
 	newstr[i] = '\0';
-	free(str);
-	return (newstr);
+	return (free(str), newstr);
 }
 
 int	get_newline_idx(char *buffer, size_t n)
@@ -81,7 +80,7 @@ void	ft_trim_buffer(char *buffer, size_t idx)
 char	*read_file(int fd, void **buffer)
 {
 	char	*str;
-	size_t	asize;
+	int		asize;
 	int		i;
 
 	asize = BUFFER_SIZE;
@@ -95,9 +94,11 @@ char	*read_file(int fd, void **buffer)
 		if (asize == 0)
 			break ;
 		i = get_newline_idx(*buffer, asize);
-		str = ft_append_buffer(str, *buffer, 0, i + 1);
+		str = ft_append_buffer(str, *buffer, i + 1, asize);
+		if (str == NULL)
+			break ;
 		ft_trim_buffer(*buffer, i + 1);
-		if (i < BUFFER_SIZE)
+		if (i < asize)
 			return (str);
 	}
 	free(*buffer);

@@ -6,7 +6,7 @@
 /*   By: nsassenb <nsassenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 16:18:16 by nsassenb          #+#    #+#             */
-/*   Updated: 2023/09/15 17:01:31 by nsassenb         ###   ########.fr       */
+/*   Updated: 2023/09/16 18:54:11 by nsassenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,6 @@ char	*get_next_line(int fd);
 char	*read_file(int fd, void **buffer);
 char	*ft_append_buffer(char *str, void *buffer, size_t index, size_t size);
 void	ft_trim_buffer(char *buffer, size_t idx);
-int		ft_check_error(size_t size, char **str);
-
-typedef struct s_list
-{
-	int				fd;
-	void			*buffer;
-	struct s_list	*next;
-}	t_list;
-
-void	*ft_get_fd_buffer(t_list **buffers, int fd);
-void	ft_lstadd_front(t_list **list, t_list *new);
-t_list	*ft_new_list_buffer(int fd);
-
-
+int		ft_check_error(int size, char **str);
 
 #endif //!GET_NEXT_LINE_BONUS_H

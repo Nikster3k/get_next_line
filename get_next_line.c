@@ -6,11 +6,23 @@
 /*   By: nsassenb <nsassenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 16:18:14 by nsassenb          #+#    #+#             */
-/*   Updated: 2023/09/15 16:05:51 by nsassenb         ###   ########.fr       */
+/*   Updated: 2023/09/18 19:21:58 by nsassenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+int	ft_strlen(char *s)
+{
+	int	count;
+
+	count = 0;
+	if (s == NULL)
+		return (count);
+	while (s[count])
+		count++;
+	return (count);
+}
 
 char	*get_next_line(int fd)
 {
@@ -18,7 +30,7 @@ char	*get_next_line(int fd)
 	char		*str;
 	size_t		size;
 
-	size = BUFFER_SIZE;
+	size = BUFFER_SIZE + 1;
 	if (buffer == NULL)
 	{
 		buffer = malloc(size);
