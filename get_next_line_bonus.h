@@ -6,7 +6,7 @@
 /*   By: nsassenb <nsassenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 16:18:16 by nsassenb          #+#    #+#             */
-/*   Updated: 2023/09/18 19:47:04 by nsassenb         ###   ########.fr       */
+/*   Updated: 2023/09/19 12:22:12 by nsassenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,5 @@
 int		ft_strlen(char *s);
 char	*get_next_line(int fd);
 char	*read_file(int fd, void **buffer);
-char	*ft_append_buffer(char *str, void *buffer, size_t index, size_t size);
-void	ft_trim_buffer(char *buffer, size_t idx);
-int		ft_check_error(int size, char **str);
 
 #endif //!GET_NEXT_LINE_BONUS_H

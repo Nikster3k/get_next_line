@@ -6,13 +6,13 @@
 /*   By: nsassenb <nsassenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 16:18:20 by nsassenb          #+#    #+#             */
-/*   Updated: 2023/09/18 19:47:38 by nsassenb         ###   ########.fr       */
+/*   Updated: 2023/09/19 12:24:11 by nsassenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-int	ft_check_error(int size, char **str)
+static int	ft_check_error(int size, char **str)
 {
 	if (size == -1)
 	{
@@ -23,16 +23,14 @@ int	ft_check_error(int size, char **str)
 	return (0);
 }
 
-char	*ft_append_buffer(char *str, void *buffer, size_t size, size_t buffsize)
+static char	*ft_append_buffer(
+	char *str, void *buffer, size_t size, size_t buffsize)
 {
 	size_t	currsize;
 	char	*newstr;
 	size_t	i;
 
-	if (size > buffsize)
-		size = buffsize;
 	currsize = ft_strlen(str);
-	buffsize = ft_strlen(buffer);
 	if (size > buffsize)
 		size = buffsize;
 	newstr = malloc(currsize + size + 1);
@@ -51,7 +49,7 @@ char	*ft_append_buffer(char *str, void *buffer, size_t size, size_t buffsize)
 	return (free(str), newstr);
 }
 
-int	get_newline_idx(char *buffer, size_t n)
+static int	get_newline_idx(char *buffer, size_t n)
 {
 	size_t	i;
 
@@ -67,7 +65,7 @@ int	get_newline_idx(char *buffer, size_t n)
 	return (n);
 }
 
-void	ft_trim_buffer(char *buffer, size_t idx)
+static void	ft_trim_buffer(char *buffer, size_t idx)
 {
 	int	x;
 
@@ -95,7 +93,7 @@ char	*read_file(int fd, void **buffer)
 		if (asize == 0)
 			break ;
 		i = get_newline_idx(*buffer, asize);
-		str = ft_append_buffer(str, *buffer, i + 1, asize);
+		str = ft_append_buffer(str, *buffer, i + 1, ft_strlen(*buffer));
 		if (str == NULL)
 			break ;
 		ft_trim_buffer(*buffer, i + 1);
