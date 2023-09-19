@@ -6,7 +6,7 @@
 /*   By: nsassenb <nsassenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 16:18:20 by nsassenb          #+#    #+#             */
-/*   Updated: 2023/09/19 12:24:04 by nsassenb         ###   ########.fr       */
+/*   Updated: 2023/09/19 12:36:31 by nsassenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,14 @@ static int	get_newline_idx(char *buffer, size_t n)
 
 static void	ft_trim_buffer(char *buffer, size_t idx)
 {
-	int	x;
+	size_t	x;
+	size_t	size;
 
+	size = BUFFER_SIZE;
 	x = 0;
-	while (idx < BUFFER_SIZE)
+	while (idx < size)
 		buffer[x++] = buffer[idx++];
-	while (x < BUFFER_SIZE)
+	while (x < size)
 		buffer[x++] = 0;
 }
 
